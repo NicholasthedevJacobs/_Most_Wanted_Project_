@@ -12,6 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
+      searchResults = searchByCriterion(people);
       // TODO: search by traits
       break;
       default:
@@ -55,6 +56,41 @@ function mainMenu(person, people){
     return mainMenu(person, people); // ask again
   }
 }
+
+function searchByCriterion(){
+  let searchType = promptFor("Enter the criterion that you are interested in finding the person by.  Enter 'gender', 'date of birth', 'height', 'weight', 'eye color', 'occupation'" , yesNo).toLowerCase();
+  let searchResults;
+  switch(searchType){
+    case 'gender':
+      searchResults = searchByGender(people);
+      break;
+    case 'date of birth':
+      searchResults = searchByDOB(people);
+      // TODO: search by traits
+      break;
+    case 'height':
+      searchResults = searchByHeight(people);
+      // TODO: search by traits
+      break;
+    case 'weight':
+      searchResults = searchByWeight(people);
+      // TODO: search by traits
+      break;
+    case 'eye color':
+      searchResults = searchByEyeColor(people);
+      // TODO: search by traits
+      break;
+    case 'occupation':
+      searchResults = searchByOccupation(people);
+      // TODO: search by traits
+      break;
+    default:
+      app(people); // restart app
+      break;
+  }
+}
+
+
 
 function searchByName(people){
   let firstName = promptFor("What is the person's first name?", chars);
