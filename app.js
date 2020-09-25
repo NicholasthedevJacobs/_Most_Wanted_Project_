@@ -19,6 +19,12 @@ function app(people){
       app(people); // restart app
       break;
   }
+
+  if(searchResults.length > 1){//use jose displayperson in the for loop
+    for(let i = 0; i < searchResults.length; i++){
+      prompt("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+    }
+  }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   // Else display all people returned
@@ -35,7 +41,8 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  
+  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");//callback?
 
   switch(displayOption){
     case "info":
@@ -89,7 +96,9 @@ function searchByCriterion(people){
       app(people); // restart app
       break;
   }
-  mainMenu(searchResults, people);
+  return searchResults;
+  return searchByCriterion(people);
+  mainMenu(searchResults);
 }
 
 
@@ -144,7 +153,7 @@ function searchByHeight(people){
   let height = promptFor("What is the person's Height?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.height === height){
+    if(person.height == height){
       return true;
     }
     else{
