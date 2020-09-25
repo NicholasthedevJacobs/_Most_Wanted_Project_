@@ -6,7 +6,7 @@ Build all of your functions for displaying and gathering information below (GUI)
 // app is the function called to start the entire application
 function app(people){
   let searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
-  let searchResults;
+  let searchResults = "";
   switch(searchType){
     case 'yes':
       searchResults = searchByName(people);
@@ -15,8 +15,8 @@ function app(people){
       searchResults = searchByCriterion(people);
       // TODO: search by traits
       break;
-      default:
-    app(people); // restart app
+    default:
+      app(people); // restart app
       break;
   }
   
@@ -57,37 +57,39 @@ function mainMenu(person, people){
   }
 }
 
-function searchByCriterion(){
-  let searchType = promptFor("Enter the criterion that you are interested in finding the person by.  Enter 'gender', 'date of birth', 'height', 'weight', 'eye color', 'occupation'" , yesNo).toLowerCase();
-  let searchResults;
-  switch(searchType){
+function searchByCriterion(people){
+  let searchType = prompt("Enter the criterion that you are interested in finding the person by.  Enter 'gender', 'date of birth', 'height', 'weight', 'eye color', 'occupation'");
+  let searchResults = "";
+  switch(searchType.toLowerCase()){
     case 'gender':
       searchResults = searchByGender(people);
+      console.log(searchResults);
       break;
     case 'date of birth':
       searchResults = searchByDOB(people);
-      // TODO: search by traits
+      console.log(searchResults);
       break;
     case 'height':
       searchResults = searchByHeight(people);
-      // TODO: search by traits
+      console.log(searchResults);
       break;
     case 'weight':
       searchResults = searchByWeight(people);
-      // TODO: search by traits
+      console.log(searchResults);
       break;
     case 'eye color':
       searchResults = searchByEyeColor(people);
-      // TODO: search by traits
+      console.log(searchResults);
       break;
     case 'occupation':
       searchResults = searchByOccupation(people);
-      // TODO: search by traits
+      console.log(searchResults);
       break;
     default:
       app(people); // restart app
       break;
   }
+  mainMenu(searchResults, people);
 }
 
 
