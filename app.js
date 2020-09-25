@@ -87,11 +87,101 @@ function searchByGender(people){
   return foundPerson;
 }
 
-function searchByGender(people){
-  let gender = promptFor("What is the person's gender?", chars);
+function searchByDOB(people){
+  let dob = promptFor("What is the person's Day of Birth?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.gender === gender){
+    if(person.dob === dob){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByHeight(people){
+  let height = promptFor("What is the person's Height?", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.height === height){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByWeight(people){
+  let weight = promptFor("What is the person's weight?", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.weight === weight){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByEyeColor(people){
+  let eyeColor = promptFor("What is the person's eye color?", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.eyeColor === eyeColor){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByOccupation(people){
+  let occupation = promptFor("What is the person's occupation?", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.occupation === occupation){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByParents(people){
+  let parents = promptFor("Who is/are the person's parent(s)?", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.parents === parents){
+      return true;
+    }
+    else{
+      return false;
+    }
+  })
+  
+  return foundPerson;
+}
+
+function searchByCurrentSpouse(people){
+  let currentSpouse = promptFor("Who is the person's spouse?", chars);
+  
+  let foundPerson = people.filter(function(person){
+    if(person.currentSpouse === currentSpouse){
       return true;
     }
     else{
