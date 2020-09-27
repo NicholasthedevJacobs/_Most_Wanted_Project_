@@ -263,25 +263,20 @@ function displayPerson(person){
   alert(personInfo);
 
 
-function searchMultipleCriteria(){
+function searchMultipleCriteria(){//test this
   let arrayOfCharacteristics = "";
   let keepSearching = true;
-  if(keepSearching = true){
+  while(keepSearching = true){
 
     if(arrayOfCharacteristics == 1 || (arrayOfCharacteristics >= 2 && arrayOfCharacteristics < 5)){
       if (arrayOfCharacteristics >= 5){
         keepSearching = false;
       }
       else{
-        searchByCriterion();
+        arrayOfCharacteristics =  searchByCriterion();
       }
 
-
     }
-    
-    
-
-  
 }
 
 // function that prompts and validates user input
