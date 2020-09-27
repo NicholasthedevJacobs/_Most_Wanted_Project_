@@ -261,6 +261,27 @@ function displayPerson(person){
   peronsinfo += "spouse " + person.currentSpouse + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
+
+
+function searchMultipleCriteria(){
+  let arrayOfCharacteristics = "";
+  let keepSearching = true;
+  if(keepSearching = true){
+
+    if(arrayOfCharacteristics == 1 || (arrayOfCharacteristics >= 2 && arrayOfCharacteristics < 5)){
+      if (arrayOfCharacteristics >= 5){
+        keepSearching = false;
+      }
+      else{
+        searchByCriterion();
+      }
+
+
+    }
+    
+    
+
+  
 }
 
 // function that prompts and validates user input
