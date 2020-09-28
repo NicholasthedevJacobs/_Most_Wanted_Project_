@@ -19,6 +19,19 @@ function app(people){
       app(people); // restart app
       break;
   }
+
+  if(searchResults.length > 1){//use jose displayperson in the for loop
+    for(let i = 0; i < searchResults.length; i++){
+      let keepSearching = promptFor("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Would you like to continue searching? Enter 'yes' or 'no'", yesNo).toLowerCase();
+      switch(keepSearching){
+        case 'yes':
+          searchResults = searchMultipleCriteria(searchResults);
+          break;
+        case 'no':
+          break;
+      }
+    }
+  }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   // Else display all people returned
@@ -89,7 +102,8 @@ function searchByCriterion(people){
       app(people); // restart app
       break;
   }
-  mainMenu(searchResults, people);
+  return searchResults;
+
 }
 
 
@@ -252,9 +266,10 @@ function displayPerson(person){
   peronsinfo += "spouse " + person.currentSpouse + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
-
-
 }
+
+
+
 function searchForSibling(person, people) {
   for (let i = 0; i < person.parents.length; i++) {
     if (person.parents[i] != undefined) {
@@ -290,3 +305,4 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
