@@ -22,7 +22,14 @@ function app(people){
 
   if(searchResults.length > 1){//use jose displayperson in the for loop
     for(let i = 0; i < searchResults.length; i++){
-      prompt("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+      let keepSearching = promptFor("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Would you like to continue searching? Enter 'yes' or 'no'", yesNo).toLowerCase();
+      switch(keepSearching){
+        case 'yes':
+          searchResults = searchMultipleCriteria(searchResults);
+          break;
+        case 'no':
+          break;
+      }
     }
   }
   
@@ -97,8 +104,7 @@ function searchByCriterion(people){
       break;
   }
   return searchResults;
-  return searchByCriterion(people);
-  mainMenu(searchResults);
+
 }
 
 
@@ -261,22 +267,31 @@ function displayPerson(person){
   peronsinfo += "spouse " + person.currentSpouse + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
+}
 
 
-function searchMultipleCriteria(){//test this
-  let arrayOfCharacteristics = "";
+function searchMultipleCriteria(arrayOfCharacteristics){//test this
+  //let arrayOfCharacteristics = "";
   let keepSearching = true;
-  while(keepSearching = true){
+  let numberOfSearches = 1;
+  while(keepSearching = true){//
 
-    if(arrayOfCharacteristics == 1 || (arrayOfCharacteristics >= 2 && arrayOfCharacteristics < 5)){
-      if (arrayOfCharacteristics >= 5){
+    if(numberOfSearches == 1 || (numberOfSearches >= 2 && numberOfSearches < 5)){//ask for user input to change search to false, as long as they are between 2-5
+      arrayOfCharacteristics = searchByCriterion();
+      let answer = prompt("Would you like to keep searching?  Yes or No.")
+      if (answer.toLowerCase = "yes"){//
+        keepSearching = true;
+        arrayOfCharacteristics = searchByCriterion();
+        numberOfSearches++;
+      }
+      else{//
         keepSearching = false;
       }
-      else{
-        arrayOfCharacteristics =  searchByCriterion();
-      }
-
+      if (arrayOfCharacteristics >= 5){//
+        keepSearching = false;
+      }      
     }
+  }
 }
 
 // function that prompts and validates user input
@@ -296,3 +311,4 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
