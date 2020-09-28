@@ -19,12 +19,6 @@ function app(people){
       app(people); // restart app
       break;
   }
-
-  if(searchResults.length > 1){//use jose displayperson in the for loop
-    for(let i = 0; i < searchResults.length; i++){
-      prompt("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
-    }
-  }
   
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   // Else display all people returned
@@ -41,8 +35,7 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");//callback?
+  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
 
   switch(displayOption){
     case "info":
@@ -96,9 +89,7 @@ function searchByCriterion(people){
       app(people); // restart app
       break;
   }
-  return searchResults;
-  return searchByCriterion(people);
-  mainMenu(searchResults);
+  mainMenu(searchResults, people);
 }
 
 
@@ -153,7 +144,7 @@ function searchByHeight(people){
   let height = promptFor("What is the person's Height?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.height == height){
+    if(person.height === height){
       return true;
     }
     else{
@@ -263,21 +254,24 @@ function displayPerson(person){
   alert(personInfo);
 
 
-function searchMultipleCriteria(){//test this
-  let arrayOfCharacteristics = "";
-  let keepSearching = true;
-  while(keepSearching = true){
-
-    if(arrayOfCharacteristics == 1 || (arrayOfCharacteristics >= 2 && arrayOfCharacteristics < 5)){
-      if (arrayOfCharacteristics >= 5){
-        keepSearching = false;
-      }
-      else{
-        arrayOfCharacteristics =  searchByCriterion();
-      }
-
-    }
 }
+function searchForSibling(person, people) {
+  for (let i = 0; i < person.parents.length; i++) {
+    if (person.parents[i] != undefined) {
+      var searchForSibling = people.filter(function(el) {
+        if ((person.parents[i] === el.parents[0] || person.parents[i] === el.parents[1]) && person.id !== el.id) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      })   
+  }  
+  }
+  return searchForSibling;
+}
+
+
 
 // function that prompts and validates user input
 function promptFor(question, valid){
