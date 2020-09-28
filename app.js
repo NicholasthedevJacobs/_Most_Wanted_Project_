@@ -55,7 +55,7 @@ function mainMenu(person, people){
     displayPerson(person)
     break;
     case "family":
-    
+    displayFamily(person, people)
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -268,6 +268,32 @@ function displayPerson(person){
   alert(personInfo);
 }
 
+function displayFamilyMembers(person, people) {
+  let displayFamily = "";
+  let parents = searchByParents(person,people);
+  let spouse = searchByCurrentSpouse(person, people);
+  let sibling = searchForSibling(person, people);
+  if (parents != null) {
+    displayFamily += "Parents: " + parent.firstName + " " + parent.lastName + "\n";
+  }
+  else {
+    displayFamily += "No Parents Found";
+  }
+  if (spouse != null) {
+    displayFamily += "Spouse: " + spouse.firstName + " " + spouse.lastName + "\n";
+  }
+  else {
+    displayFamily += "No Spouse Found";
+  }
+  if (parents != null) {
+    displayFamily += "Siblings: " + sibling.firstName + " " + sibling.lastName + "\n";
+  }
+  else {
+    displayFamily += "No Siblings Found";
+  }
+  alert(displayFamily);
+
+}
 
 
 function searchForSibling(person, people) {
@@ -285,7 +311,6 @@ function searchForSibling(person, people) {
   }
   return searchForSibling;
 }
-
 
 
 // function that prompts and validates user input
