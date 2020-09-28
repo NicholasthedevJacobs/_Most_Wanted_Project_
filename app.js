@@ -68,7 +68,7 @@ function mainMenu(person, people){
     displayPerson(person)
     break;
     case "family":
-    displayFamily(person, people)
+    displayFamilyMembers(person, people)
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -171,7 +171,7 @@ function searchByHeight(people){
   let height = promptFor("What is the person's Height?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.height === height){
+    if(person.height == height){
       return true;
     }
     else{
@@ -186,7 +186,7 @@ function searchByWeight(people){
   let weight = promptFor("What is the person's weight?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.weight === weight){
+    if(person.weight == weight){
       return true;
     }
     else{
@@ -227,34 +227,64 @@ function searchByOccupation(people){
   return foundPerson;
 }
 
-function searchByParents(people){
-  let parents = promptFor("Who is/are the person's parent(s)?", chars);
-  
-  let foundPerson = people.filter(function(person){
-    if(person.parents === parents){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
-  
-  return foundPerson;
+function searchByParents(person, people){
+  let personParents = "";
+
+  if(person[0].parents == undefined){
+    return false;
+  }
+ 
+  else if (person[0].parents.length == 1){
+    personParents = people.filter(function(el){
+      if(person[0].parents[0] === el.id){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+
+  }
+
+  else if(person[0].parents.length == 2){
+    personParents = people.filter(function(el){
+      if(person.parents[0] === el.id && person.parents[1] === el.id){
+        return true;
+      }
+      else{
+        return false;
+      }
+      
+    })
+    //return personParents;  
+  }
+  return personParents;
 }
 
-function searchByCurrentSpouse(people){
-  let currentSpouse = promptFor("Who is the person's spouse?", chars);
+function searchByCurrentSpouse(person, people){
+
+  let personSpouse = "";
+  if(person[0].currentSpouse == undefined){
+    return false;
+  }
+ 
+  else if (person[0].currentSpouse != null){
+    personSpouse = people.filter(function(el){
+      if(person[0].currentSpouse === el.id){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+    return personSpouse;
+  }
+
   
-  let foundPerson = people.filter(function(person){
-    if(person.currentSpouse === currentSpouse){
-      return true;
-    }
-    else{
-      return false;
-    }
-  })
   
-  return foundPerson;
+  
+  
+  //return personSpouse;
 }
 
 // alerts a list of people
@@ -283,29 +313,49 @@ function displayPerson(person){
 
 function displayFamilyMembers(person, people) {
   let displayFamily = "";
-  let parents = searchByParents(person,people);
+  let parents = searchByParents(person, people);
   let spouse = searchByCurrentSpouse(person, people);
   let sibling = searchForSibling(person, people);
   if (parents != null) {
-    displayFamily += "Parents: " + parent.firstName + " " + parent.lastName + "\n";
+    displayFamily = prompt("Parents name is " + parents[0].firstName + " " + parents[0].lastName);
+    
   }
   else {
-    displayFamily += "No Parents Found";
+    displayFamily = prompt("No Parents Found");
   }
   if (spouse != null) {
-    displayFamily += "Spouse: " + spouse.firstName + " " + spouse.lastName + "\n";
+    displayFamily = prompt("Spouse: " + spouse[0].firstName + " " + spouse[0].lastName + "\n");
   }
   else {
-    displayFamily += "No Spouse Found";
+    displayFamily = prompt("No Spouse Found");
   }
-  if (parents != null) {
-    displayFamily += "Siblings: " + sibling.firstName + " " + sibling.lastName + "\n";
+  if (sibling != null && sibling == 1) {
+    displayFamily = prompt("Siblings: " + sibling[0].firstName + " " + sibling[0].lastName + "\n");
+  }
+  else if(sibling != null && sibling.length == 2){
+    displayFamily = prompt("Sibling one is named: " + sibling[0].firstName + " " + sibling[0].lastName + "\n" + " and sibling two is named " + sibling[1].firstName + " " + sibling[1].lastName);
   }
   else {
-    displayFamily += "No Siblings Found";
+    displayFamily = prompt("No Siblings Found");
   }
-  alert(displayFamily);
+  //alert(displayFamily);
 
+}
+
+function searchForSibling(person, people) {
+  for (let i = 0; i < person[0].parents.length; i++) {
+    if (person[0].parents[i] != undefined) {
+      var searchForSibling = people.filter(function(el) {
+        if (person[0].parents[i] === el.parents[0] || (person[0].parents[i] === el.parents[0] && person[0].parents[i] === el.parents[1]) && person[0].id !== el.id) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      })   
+  }  
+  }
+  return searchForSibling;
 }
 
 function searchMultipleCriteria(arrayOfCharacteristics){//test this
