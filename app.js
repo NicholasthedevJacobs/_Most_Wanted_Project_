@@ -171,7 +171,7 @@ function searchByHeight(people){
   let height = promptFor("What is the person's Height?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.height == height){
+    if(person.height === height){
       return true;
     }
     else{
@@ -307,7 +307,10 @@ function searchMultipleCriteria(arrayOfCharacteristics){//test this
     }
     return arrayOfCharacteristics;
   }
+  return searchForSibling;
 }
+
+
 
 // function that prompts and validates user input
 function promptFor(question, valid){
