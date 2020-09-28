@@ -12,7 +12,7 @@ function app(people){
       searchResults = searchByName(people);
       break;
     case 'no':
-      searchResults = searchByCriterion(people);
+      searchResults = searchMultipleCriteria(people); // searchByCriterion(people);
       // TODO: search by traits
       break;
     default:
@@ -20,19 +20,20 @@ function app(people){
       break;
   }
 
-  if(searchResults.length > 1){//use jose displayperson in the for loop
-    for(let i = 0; i < searchResults.length; i++){
-      let keepSearching = promptFor("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Would you like to continue searching? Enter 'yes' or 'no'", yesNo).toLowerCase();
-      switch(keepSearching){
-        case 'yes':
-          searchResults = searchMultipleCriteria(searchResults);
-          break;
-        case 'no':
-          break;
-      }
-    }
-  }
+  //if(searchResults.length > 1){//use jose displayperson in the for loop
+    //for(let i = 0; i < searchResults.length; i++){
+      //let keepSearching = promptFor("Found " + searchResults[i].firstName + " " + searchResults[i].lastName + " . Would you like to continue searching? Enter 'yes' or 'no'", yesNo).toLowerCase();
+      //switch(keepSearching){
+       // case 'yes':
+         // searchResults = searchMultipleCriteria(searchResults);
+         // break;
+       // case 'no':
+        //  break;
+     // }
+    //}
+  //}
   
+
   // Call the mainMenu function ONLY after you find the SINGLE person you are looking for
   // Else display all people returned
   mainMenu(searchResults, people);
@@ -48,7 +49,19 @@ function mainMenu(person, people){
     return app(people); // restart
   }
 
-  let displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  // for(let i = 0; i < person.length; i++){
+  //   let keepSearching = promptFor("Found " + person[i].firstName + " " + person[i].lastName + " . Would you like to continue searching? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  //   switch(keepSearching){
+  //     case 'yes':
+  //       person = searchMultipleCriteria(person);
+  //       break;
+  //     case 'no':
+  //       break;
+  //  }
+  // }
+
+  
+  let displayOption = prompt("Found " + person[0].firstName + " " + person[0].lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");//callback?
 
   switch(displayOption){
     case "info":
@@ -295,19 +308,30 @@ function displayFamilyMembers(person, people) {
 
 }
 
-
-function searchForSibling(person, people) {
-  for (let i = 0; i < person.parents.length; i++) {
-    if (person.parents[i] != undefined) {
-      var searchForSibling = people.filter(function(el) {
-        if ((person.parents[i] === el.parents[0] || person.parents[i] === el.parents[1]) && person.id !== el.id) {
-          return true;
-        }
-        else {
-          return false;
-        }
-      })   
-  }  
+function searchMultipleCriteria(arrayOfCharacteristics){//test this
+  //let arrayOfCharacteristics = "";
+  let keepSearching = true;
+  let numberOfSearches = 1;
+  while(keepSearching = true){
+// && numberOfSearches == 1 || (numberOfSearches >= 2 && numberOfSearches < 5)){//ask for user input to change search to false, as long as they are between 2-5
+    while(arrayOfCharacteristics.length > 1){
+      arrayOfCharacteristics = searchByCriterion(arrayOfCharacteristics);
+      //print out the persons name
+      let answer = prompt("Would you like to keep searching?  Yes or No.").toLowerCase();
+      if (answer == 'yes'){
+        keepSearching = true;
+        arrayOfCharacteristics = searchByCriterion(arrayOfCharacteristics);
+        numberOfSearches += 1;
+      }
+      else{
+        keepSearching = false;
+      }
+      if (numberOfSearches >= 5){
+        keepSearching = false;
+      }   
+      
+    }
+    return arrayOfCharacteristics;
   }
   return searchForSibling;
 }
