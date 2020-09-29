@@ -69,8 +69,16 @@ function mainMenu(person, people){
     break;
     case "family":
     displayFamilyMembers(person, people)
+    
     break;
     case "descendants":
+     let descendants =  displayDescendants(person, people)
+     displayPerson(displayDescendants(person, people));
+    
+    for(let i = 0; i < descendants.length; i++){
+      displayPerson(displayDescendants(person[i], descendants))
+    }
+    //displayPerson(descendants);
     // TODO: get person's descendants
     break;
     case "restart":
@@ -297,16 +305,10 @@ function displayPeople(people){
 function displayPerson(person){
   // print all of the information about a person:
   // height, weight, age, name, occupation, eye color.
-  let personInfo = "First Name: " + person.firstName + "\n";
-  personInfo += "Last Name: " + person.lastName + "\n";
-  personInfo += "Gender: " + person.gender + "\n";
-  personInfo += "DOB: " + person.dob + "\n";
-  personInfo += "Height: " + person.height + "\n";
-  personInfo += "Weight: " + person.weight + "\n";
-  personInfo += "Eye Color: " + person.eyeColor + "\n";
-  personinfo += "Occupation " + person.occupation + "\n";
-  personInfo += "Parents " + person.parents + "\n"; 
-  peronsinfo += "spouse " + person.currentSpouse + "\n";
+  let personInfo = prompt("First Name: " + person[0].firstName + "\n" + "Last Name: " + person[0].lastName + "\n" + 
+  "Gender: " + person[0].gender + "\n" + "DOB: " + person[0].dob + "\n" + "Height: " + person[0].height + "\n" + "Weight: " + person[0].weight + "\n"
+  + "Eye Color: " + person[0].eyeColor + "\n" + "Occupation: " + person[0].occupation + "\n");
+ 
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -357,6 +359,49 @@ function searchForSibling(person, people) {
   }
   return searchForSibling;
 }
+
+
+
+// function lookUpDescendants(person, people){
+
+//   let personChildren = "";
+//   let countdown = lookUpDescendants(person, people){
+//     if ()
+//   }
+//   let personParent = searchByParents(person, people);
+//   let personGrandParent = searchByParents(personParent, people);
+//   let counter = 3;
+ 
+  
+
+//   if(counter > 0){
+//     personParent = lookUpDescendants(personGrandParent, people);
+//     personChildren = lookUpDescendants(personParent, people);
+//   }
+// }
+
+
+function displayDescendants(person, people) {
+  var personChildren = [];
+  var counter = 0;  
+
+  let foundPeople = people.filter(function (el) {
+    if (person.id === el.parents[0] || person.id === el.parents[1]) {
+      personChildren.push(el);
+      return true;
+    }
+    else {
+      return false;
+    }
+  })
+  for (var i = counter; i < personChildren.length; i++) {
+    counter++;
+    displayDescendants(personChildren[i], people);
+  }
+  return personChildren;
+}
+
+
 
 function searchMultipleCriteria(arrayOfCharacteristics){//test this
   //let arrayOfCharacteristics = "";
