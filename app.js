@@ -227,11 +227,11 @@ function searchByOccupation(people){
   return foundPerson;
 }
 
-function searchByParents(people){
+function searchByParents(person, people){
   let parents = promptFor("Who is/are the person's parent(s)?", chars);
   
-  let foundPerson = people.filter(function(person){
-    if(person.parents === parents){
+  let foundPerson = people.filter(function(el){
+    if(person.parents[] === parents){//check if they have parents first.
       return true;
     }
     else{
@@ -308,6 +308,22 @@ function displayFamilyMembers(person, people) {
 
 }
 
+function searchForSibling(person, people) {
+  for (let i = 0; i < person.parents.length; i++) {
+    if (person.parents[i] != undefined) {
+      var searchForSibling = people.filter(function(el) {
+        if (person.parents[i] === el.parents[0] || (person.parents[i] === el.parents[0] && person.parents[i] === el.parents[1]) && person.id !== el.id) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      })   
+  }  
+  }
+  return searchForSibling;
+}
+
 function searchMultipleCriteria(arrayOfCharacteristics){//test this
   //let arrayOfCharacteristics = "";
   let keepSearching = true;
@@ -333,7 +349,7 @@ function searchMultipleCriteria(arrayOfCharacteristics){//test this
     }
     return arrayOfCharacteristics;
   }
-  return searchForSibling;
+  //return searchForSibling;
 }
 
 
