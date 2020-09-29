@@ -68,7 +68,7 @@ function mainMenu(person, people){
     displayPerson(person)
     break;
     case "family":
-    displayFamily(person, people)
+    displayFamilyMembers(person, people)
     break;
     case "descendants":
     // TODO: get person's descendants
@@ -171,7 +171,7 @@ function searchByHeight(people){
   let height = promptFor("What is the person's Height?", chars);
   
   let foundPerson = people.filter(function(person){
-    if(person.height === height){
+    if(person.height == height){
       return true;
     }
     else{
